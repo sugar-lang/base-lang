@@ -1,16 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.sugarj.languagelib
-Bundle-SymbolicName: org.sugarj.languagelib;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: org.sugarj.baselang
+Bundle-SymbolicName: org.sugarj.baselang;singleton:=true
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.sugarj.baselang.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.sugarj.common,
  org.sugarj.stdlib,
- org.strategoxt.strj,
- org.strategoxt.imp.runtime,
- org.strategoxt.imp.nativebundle,
- org.spoofax.jsglr
+ org.strategoxt.strj
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.sugarj,
