@@ -75,7 +75,8 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
 
   public          String getImportLocalName(IStrategoTerm decl) { return null; }
   public          String getModulePath(IStrategoTerm decl) { return null; }
-  public          IStrategoTerm reconstructImport(String modulePath, IStrategoTerm original) { return null; }
+  public          IStrategoTerm reconstructImport(String modulePath, IStrategoTerm original) { throw new UnsupportedOperationException(); }
+  public          IStrategoTerm getImportForExport(IStrategoTerm export) { throw new UnsupportedOperationException(); }
 	
   /**
    * Computes the path of the given transformation application term.
@@ -84,6 +85,7 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
     if (ATermCommands.isApplication(appl, "TransApp")) {
       String trans = getTransformedModulePath(appl.getSubterm(0));
       String model = getTransformedModulePath(appl.getSubterm(1));
+      // TODO modularize naming scheme in Renaming
       return model + "__" + trans.replace('/', '_');
     }
     return getModulePath(appl);
