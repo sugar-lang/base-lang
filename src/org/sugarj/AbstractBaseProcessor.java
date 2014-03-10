@@ -13,6 +13,7 @@ import org.sugarj.common.ATermCommands;
 import org.sugarj.common.Environment;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
+import org.sugarj.common.cleardep.CompilationUnit;
 import org.sugarj.common.errors.SourceCodeException;
 import org.sugarj.common.path.Path;
 
@@ -43,6 +44,7 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
 	    Path outFile, 
 	    String source, 
 	    Path bin,
+	    CompilationUnit mod,
 	    List<Path> path,
 			Set<Path> deferredSourceFilesForSourceFile
 			) throws IOException, ClassNotFoundException, SourceCodeException {
@@ -54,7 +56,8 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
     outSourceFiles.addAll(deferredSourceFilesForSourceFile);
     
     if (!source.isEmpty()) {
-      writeToFile(generatedFiles, outFile, source);
+      FileCommands.writeToFile(outFile, source);
+      mod.addGeneratedFile(outFile);
       outSourceFiles.add(outFile);
     }
     
@@ -68,14 +71,9 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
     return generatedFiles;
  	}
 
-  private void writeToFile(Set<Path> generatedFiles, Path file, String content) throws IOException { 
-		FileCommands.writeToFile(file, content);
-		generatedFiles.add(file);
-	}
-
   public          String getImportLocalName(IStrategoTerm decl) { return null; }
   public          String getModulePath(IStrategoTerm decl) { return null; }
-  public          IStrategoTerm reconstructImport(String modulePath, IStrategoTerm original) { throw new UnsupportedOperationException(); }
+  public          IStrategoTerm reconstructImport(String modulePath) { throw new UnsupportedOperationException(); }
   public          IStrategoTerm getImportForExport(IStrategoTerm export) { throw new UnsupportedOperationException(); }
 	
   /**
