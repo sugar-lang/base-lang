@@ -96,19 +96,23 @@ public abstract class AbstractBaseLanguage implements IBaseLanguage {
     return f;
   }
 
-  public          IStrategoTerm getTransformationApplication(IStrategoTerm decl) { return null; }
+  public          IStrategoTerm getTransformationApplication(IStrategoTerm decl) { throw new UnsupportedOperationException(); }
 
-  public          IStrategoTerm getTransformationBody(IStrategoTerm decl) { return null; }
+  public          IStrategoTerm getTransformationBody(IStrategoTerm decl) { throw new UnsupportedOperationException(); }
 
-  public          String getTransformationName(IStrategoTerm decl) throws IOException { return null; }
+  public          String getTransformationName(IStrategoTerm decl) throws IOException { throw new UnsupportedOperationException(); }
 
   public          boolean isModelDec(IStrategoTerm decl) { return false; }
 
-  public          boolean isTransformationApplication(IStrategoTerm decl) { return false; }
+  public          boolean isTransformationImport(IStrategoTerm decl) { return false; }
 
   public          boolean isTransformationDec(IStrategoTerm decl) { return false; }
 
   public          boolean isTransformationImportDec(IStrategoTerm decl) { return false; }
 
-  public          String getModelName(IStrategoTerm decl) throws IOException { return null; }
+  public          String getModelName(IStrategoTerm decl) throws IOException { throw new UnsupportedOperationException(); }
+
+  public          boolean isExportDecl(IStrategoTerm toplevelDecl) { return false; }
+  
+  public          String getExportName(IStrategoTerm decl) { throw new UnsupportedOperationException(); }
 }
