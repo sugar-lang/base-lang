@@ -73,7 +73,7 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
 
   public          String getImportLocalName(IStrategoTerm decl) { return null; }
   public          String getModulePath(IStrategoTerm decl) { return null; }
-  public          IStrategoTerm reconstructImport(String modulePath) { throw new UnsupportedOperationException(); }
+  public          IStrategoTerm reconstructImport(String modulePath) { return null; }
   public          IStrategoTerm getImportForExport(IStrategoTerm export) { throw new UnsupportedOperationException(); }
 	
   /**
