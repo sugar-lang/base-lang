@@ -7,7 +7,8 @@ Bundle-Activator: org.sugarj.baselang.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.sugarj.common,
  org.sugarj.stdlib,
- org.strategoxt.strj
+ org.strategoxt.strj,
+ org.spoofax.terms
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.sugarj,
