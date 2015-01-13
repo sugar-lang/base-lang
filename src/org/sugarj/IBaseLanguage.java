@@ -55,7 +55,7 @@ public interface IBaseLanguage {
   public abstract String getInitTransModuleName();
   public abstract Path getInitEditor();
   public abstract String getInitEditorModuleName();
-
+  
   public abstract boolean isExtensionDecl(IStrategoTerm decl);
   public abstract boolean isImportDecl(IStrategoTerm decl);
   public abstract boolean isBaseDecl(IStrategoTerm decl);

@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.spoofax.interpreter.terms.IStrategoTerm;
+import org.spoofax.jsglr.shared.SGLRException;
+import org.sugarj.common.ATermCommands;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
 import org.sugarj.common.path.AbsolutePath;
@@ -94,6 +97,19 @@ public abstract class AbstractBaseLanguage implements IBaseLanguage {
     }
   
     return f;
+  }
+  
+  private List<IStrategoTerm> initEditorServices = null;
+  public List<IStrategoTerm> getInitEditorServices() {
+    if (initEditorServices == null) {
+      try {
+        initEditorServices = ATermCommands.parseEditorServiceFile(StdLib.editorServicesParser, getInitEditor());
+      } catch (SGLRException | InterruptedException | IOException e) {
+        e.printStackTrace();
+        initEditorServices = Collections.emptyList();
+      }
+    }
+    return initEditorServices;
   }
 
   public          IStrategoTerm getTransformationApplication(IStrategoTerm decl) { throw new UnsupportedOperationException(); }
