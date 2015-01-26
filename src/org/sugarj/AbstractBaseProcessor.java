@@ -10,10 +10,10 @@ import java.util.Set;
 
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.strategoxt.HybridInterpreter;
+import org.sugarj.cleardep.CompilationUnit;
 import org.sugarj.common.ATermCommands;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
-import org.sugarj.common.cleardep.CompilationUnit;
 import org.sugarj.common.errors.SourceCodeException;
 import org.sugarj.common.path.Path;
 
