@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.spoofax.interpreter.terms.IStrategoTerm;
-import org.sugarj.common.Environment;
+import org.sugarj.baselang.IORelay;
 import org.sugarj.common.errors.SourceCodeException;
 import org.sugarj.common.path.Path;
 import org.sugarj.common.path.RelativePath;
@@ -17,7 +17,7 @@ public interface IBaseProcessor {
 
   public abstract AbstractBaseLanguage getLanguage();
 
-  public abstract void init(Set<RelativePath> sourceFiles, Environment environment);
+  public abstract void init(Set<RelativePath> sourceFiles, IORelay environment);
   
   public abstract void processModuleImport(IStrategoTerm toplevelDecl) throws IOException;
   public abstract List<String> processBaseDecl(IStrategoTerm toplevelDecl) throws IOException;
