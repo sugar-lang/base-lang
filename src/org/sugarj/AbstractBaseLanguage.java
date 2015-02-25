@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
@@ -27,7 +28,9 @@ import org.sugarj.stdlib.StdLib;
  * @author seba, frieger
  * 
  */
-public abstract class AbstractBaseLanguage implements IBaseLanguage {
+public abstract class AbstractBaseLanguage implements IBaseLanguage, Serializable {
+  private static final long serialVersionUID = -4437147264827389424L;
+
   private transient Path libDir;
   private transient Path libTmpDir;
 
