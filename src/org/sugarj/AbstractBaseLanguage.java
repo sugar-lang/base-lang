@@ -102,7 +102,7 @@ public abstract class AbstractBaseLanguage implements IBaseLanguage, Serializabl
     return f;
   }
   
-  private List<IStrategoTerm> initEditorServices = null;
+  private transient List<IStrategoTerm> initEditorServices = null;
   public List<IStrategoTerm> getInitEditorServices() {
     if (initEditorServices == null) {
       try {
