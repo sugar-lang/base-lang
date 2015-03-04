@@ -10,7 +10,8 @@ import java.util.Set;
 
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.strategoxt.HybridInterpreter;
-import org.sugarj.cleardep.CompilationUnit;
+import org.sugarj.cleardep.build.Builder;
+import org.sugarj.cleardep.stamp.Stamper;
 import org.sugarj.common.ATermCommands;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
@@ -44,7 +45,8 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
 	    Path outFile, 
 	    String source, 
 	    Path bin,
-	    CompilationUnit mod,
+	    Builder<?,?> mod,
+	    Stamper stamper,
 	    List<Path> path,
 			Set<Path> deferredSourceFilesForSourceFile
 			) throws IOException, ClassNotFoundException, SourceCodeException {
@@ -57,7 +59,7 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
     
     if (!source.isEmpty()) {
       FileCommands.writeToFile(outFile, source);
-      mod.addGeneratedFile(outFile);
+      mod.generates(outFile, stamper);
       outSourceFiles.add(outFile);
     }
     
