@@ -59,7 +59,7 @@ public abstract class AbstractBaseProcessor implements IBaseProcessor, Serializa
     
     if (!source.isEmpty()) {
       FileCommands.writeToFile(outFile, source);
-      mod.generates(outFile, stamper);
+      mod.generate(outFile, stamper);
       outSourceFiles.add(outFile);
     }
     
