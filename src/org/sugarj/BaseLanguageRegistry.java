@@ -1,10 +1,13 @@
 package org.sugarj;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -26,6 +29,8 @@ public class BaseLanguageRegistry {
   private boolean extensionsLoaded = false;
   
   private Map<String, AbstractBaseLanguage> baseLanguages = new HashMap<String, AbstractBaseLanguage>();
+  
+  private List<Future<AbstractBaseLanguage>> lazyLanguages = new ArrayList<>();
 
   private static BaseLanguageRegistry instance = new BaseLanguageRegistry();
 
@@ -40,6 +45,10 @@ public class BaseLanguageRegistry {
     baseLanguages.put(baseLang.getSugarFileExtension(), baseLang);
     if (baseLang.getBaseFileExtension() != null)
       baseLanguages.put(baseLang.getBaseFileExtension(), baseLang);
+  }
+  
+  public synchronized void registerBaseLanguageLazy(Future<AbstractBaseLanguage> lazyLanguage) {
+    lazyLanguages.add(lazyLanguage);
   }
 
   public synchronized void unregisterBaseLanguage(AbstractBaseLanguage baseLang) {
@@ -80,10 +89,16 @@ public class BaseLanguageRegistry {
   }
   
   private synchronized void loadExtensions() {
-    extensionsLoaded = true;
-
     if (!Platform.isRunning())
       return;
+    
+    extensionsLoaded = true;
+    for (Future<AbstractBaseLanguage> lazyLanguage : lazyLanguages)
+      try {
+        registerBaseLanguage(lazyLanguage.get());
+      } catch (InterruptedException | ExecutionException e) {
+        throw new RuntimeException(e);
+      }
    
     IExtensionRegistry registry = Platform.getExtensionRegistry();
     IExtensionPoint extensionPoint = registry.getExtensionPoint("org.sugarj.language");
@@ -103,6 +118,7 @@ public class BaseLanguageRegistry {
         bundle.start();
       } catch (BundleException e) {
         Log.log.logErr("Could not start language plugin " + pluginId, Log.ALWAYS);
+        e.printStackTrace();
       }
     return bundle;
   }
